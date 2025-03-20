@@ -110,61 +110,22 @@
 <body>
     <div class="todo-container">
         <h2>📝 Unique To-Do List</h2>
-        <input type="text" class="todo-input" placeholder="Add a new task...">
-        <button class="add-btn">Add</button>
+        <input type="text" id="taskInput" class="todo-input" placeholder="Add a new task...">
+        <button id="addTaskBtn" class="add-btn">Add</button>
     </div>
 
     <div class="task-container">
         <div class="task-box">
             <h3>Pending Tasks</h3>
-            <ul class="todo-list"></ul>
+            <ul id="pendingTasks" class="todo-list"></ul> <!-- ✅ ID Added -->
         </div>
         <div class="task-box">
             <h3>Completed Tasks</h3>
-            <ul class="completed-list"></ul>
+            <ul id="completedTasks" class="completed-list"></ul> <!-- ✅ ID Added -->
         </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", loadTasks);
-        document.querySelector(".add-btn").addEventListener("click", addTask);
-
-        function addTask() {
-            const input = document.querySelector(".todo-input");
-            if (input.value.trim() === "") return;
-            
-            const li = document.createElement("li");
-            li.innerHTML = `${input.value} <button class="done-btn">✔</button> <button class="delete-btn">❌</button>`;
-            document.querySelector(".todo-list").appendChild(li);
-            
-            saveTasks();
-            input.value = "";
-        }
-
-        document.querySelector(".task-container").addEventListener("click", function(e) {
-            if (e.target.classList.contains("delete-btn")) {
-                e.target.parentElement.remove();
-            } else if (e.target.classList.contains("done-btn")) {
-                const li = e.target.parentElement;
-                li.classList.toggle("done");
-                if (li.classList.contains("done")) {
-                    document.querySelector(".completed-list").appendChild(li);
-                } else {
-                    document.querySelector(".todo-list").appendChild(li);
-                }
-            }
-            saveTasks();
-        });
-
-        function saveTasks() {
-            localStorage.setItem("pendingTasks", document.querySelector(".todo-list").innerHTML);
-            localStorage.setItem("completedTasks", document.querySelector(".completed-list").innerHTML);
-        }
-
-        function loadTasks() {
-            document.querySelector(".todo-list").innerHTML = localStorage.getItem("pendingTasks") || "";
-            document.querySelector(".completed-list").innerHTML = localStorage.getItem("completedTasks") || "";
-        }
-    </script>
+    <!-- ✅ Place script here to ensure HTML elements exist before JS runs -->
+    <script src="script.js"></script>
 </body>
 </html>
